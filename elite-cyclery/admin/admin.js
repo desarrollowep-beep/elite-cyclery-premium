@@ -29,22 +29,40 @@ function renderAdminBikes() {
     return;
   }
 
-  bikes.forEach((bike) => {
-    const card = document.createElement('div');
-    card.classList.add('admin-bike-card');
+ bikes.forEach((bike, index) => {
+  const card = document.createElement('div');
+  card.classList.add('admin-bike-card');
 
-    card.innerHTML = `
-      <img src="${bike.imagen}" alt="${bike.marca} ${bike.modelo}">
-      <h3>${bike.marca} ${bike.modelo}</h3>
-      <p><strong>Tipo:</strong> ${bike.tipo}</p>
-      <p><strong>Color:</strong> ${bike.color}</p>
-      <p><strong>Stock:</strong> ${bike.stock}</p>
-      <p><strong>Serie:</strong> ${bike.serie}</p>
-      <p><strong>Precio:</strong> ${bike.precio}</p>
-    `;
+  card.innerHTML = `
+    <img src="${bike.imagen}" alt="${bike.marca} ${bike.modelo}">
+    <h3>${bike.marca} ${bike.modelo}</h3>
+    <p><strong>Tipo:</strong> ${bike.tipo}</p>
+    <p><strong>Color:</strong> ${bike.color}</p>
+    <p><strong>Stock:</strong> ${bike.stock}</p>
+    <p><strong>Serie:</strong> ${bike.serie}</p>
+    <p><strong>Precio:</strong> ${bike.precio}</p>
 
-    adminBikeList.appendChild(card);
+    <button class="delete-btn" data-index="${index}">
+      Eliminar
+    </button>
+  `;
+
+  adminBikeList.appendChild(card);
+});
+}
+document.querySelectorAll('.delete-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const index = e.target.getAttribute('data-index');
+    const bikes = getBikes();
+
+    if (confirm('¿Seguro que quieres eliminar esta bicicleta?')) {
+      bikes.splice(index, 1);
+      saveBikes(bikes);
+      renderAdminBikes();
+    }
   });
+});
+
 }
 
 if (bikeForm) {

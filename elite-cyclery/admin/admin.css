@@ -256,3 +256,14 @@ body {
     padding: 25px;
   }
 }
+.delete-btn {
+  margin-top: 12px;
+  width: 100%;
+  background: #ff2e2e;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
